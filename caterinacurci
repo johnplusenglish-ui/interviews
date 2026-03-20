@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Interview — Caterina Curci | Bending Spoons</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink-soft: #4a4a5a;
+    --ink-muted: #8a8a9a;
+    --accent: #2d5a8e;
+    --accent-light: #e8f0f8;
+    --accent-deep: #1b3a5c;
+    --surface: #fafaf8;
+    --card: #ffffff;
+    --border: #e4e4e0;
+    --warn: #c44;
+    --green: #2a7a4a;
+    --tag-bg: #f0ece4;
+    --tag-text: #6a5d4a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .no-print { display: none !important; }
+    .question-card { break-inside: avoid; }
+    .section-block { break-before: auto; }
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--accent-deep) 0%, #2d5a8e 60%, #3a7ab8 100%);
+    color: #fff;
+    padding: 56px 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  header .subtitle {
+    font-weight: 400;
+    font-size: 1.05rem;
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+  header .meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+  header .meta-row span::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── NAV TABS ── */
+  .tab-bar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-bar .container {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 14px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── SECTIONS ── */
+  .tab-content { display: none; padding: 36px 0 60px; }
+  .tab-content.active { display: block; }
+
+  /* ── SNAPSHOT ── */
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .snapshot-grid { grid-template-columns: 1fr; } }
+
+  .snap-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .snap-card h3 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .snap-card p { font-size: 0.92rem; color: var(--ink-soft); }
+
+  .strengths-gaps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  @media (max-width: 600px) { .strengths-gaps { grid-template-columns: 1fr; } }
+
+  .sg-box {
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 3px solid;
+  }
+  .sg-box.strengths {
+    background: #f0f8f2;
+    border-color: var(--green);
+  }
+  .sg-box.gaps {
+    background: #fdf2f2;
+    border-color: var(--warn);
+  }
+  .sg-box h3 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .sg-box.strengths h3 { color: var(--green); }
+  .sg-box.gaps h3 { color: var(--warn); }
+  .sg-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .sg-box li {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+  .sg-box li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 11px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .sg-box.strengths li::before { background: var(--green); }
+  .sg-box.gaps li::before { background: var(--warn); }
+
+  /* ── QUESTION CARDS ── */
+  .section-label {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--accent-deep);
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .question-card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .q-header {
+    padding: 20px 24px 16px;
+    cursor: pointer;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .q-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.82rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .q-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .q-toggle {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+    transition: transform 0.25s;
+    font-size: 1.1rem;
+  }
+  .question-card.open .q-toggle { transform: rotate(180deg); }
+
+  .q-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .question-card.open .q-body {
+    max-height: 600px;
+  }
+  .q-body-inner {
+    padding: 0 24px 20px;
+    margin-left: 46px;
+  }
+
+  .rationale {
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+  }
+  .rationale-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--tag-text);
+    margin-bottom: 4px;
+  }
+  .rationale p {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .follow-ups { margin-bottom: 14px; }
+  .follow-ups h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .follow-ups li {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    padding: 3px 0 3px 8px;
+    border-left: 2px solid var(--accent-light);
+    margin-bottom: 4px;
+    margin-left: 4px;
+    list-style: none;
+  }
+
+  .notes-area textarea {
+    width: 100%;
+    min-height: 60px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+    resize: vertical;
+    background: #fafaf8;
+    transition: border-color 0.2s;
+  }
+  .notes-area textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+  }
+  .notes-area textarea::placeholder { color: var(--ink-muted); }
+
+  /* ── EVAL TABLE ── */
+  .eval-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .eval-table th {
+    background: var(--accent-deep);
+    color: #fff;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+  }
+  .eval-table th:first-child { border-radius: 8px 0 0 0; }
+  .eval-table th:last-child { border-radius: 0 8px 0 0; }
+  .eval-table td {
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .eval-table tr:nth-child(even) td { background: #fafaf8; }
+  .eval-table .criterion { font-weight: 600; color: var(--ink); }
+  .eval-table .desc { color: var(--ink-soft); font-size: 0.83rem; }
+  .eval-table input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px dashed var(--border);
+    padding: 4px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    background: transparent;
+    color: var(--ink);
+  }
+  .eval-table input:focus { outline: none; border-bottom-color: var(--accent); }
+
+  .final-notes {
+    margin-top: 28px;
+  }
+  .final-notes h3 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .final-notes textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    resize: vertical;
+    background: #fff;
+  }
+  .final-notes textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* ── EXPAND ALL ── */
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+  }
+  .expand-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: none;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .expand-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Mock Interview</h1>
+    <div class="subtitle">People Administration Manager — Bending Spoons</div>
+    <div class="meta-row">
+      <span>Candidate: Caterina Curci</span>
+      <span>Duration: 45–60 min</span>
+      <span>12 questions, 6 sections</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-bar no-print">
+  <div class="container">
+    <button class="tab-btn active" data-tab="snapshot">Snapshot</button>
+    <button class="tab-btn" data-tab="questions">Questions</button>
+    <button class="tab-btn" data-tab="evaluation">Evaluation</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ─── SNAPSHOT TAB ─── -->
+  <div class="tab-content active" id="snapshot">
+    <div class="container">
+      <div class="snapshot-grid">
+        <div class="snap-card">
+          <h3>Current Role</h3>
+          <p>Administrative Assistant at Stadtwerke München GmbH (2021–present). Handles invoicing (SAP FI), order management (SAP MM), supplier liaison, meeting documentation, and department support.</p>
+        </div>
+        <div class="snap-card">
+          <h3>Education</h3>
+          <p>Master's in Linguistic, Literary &amp; Translation Sciences (Sapienza, Rome). Post-grad specialisation in DE↔IT translation. Bachelor's in Languages &amp; Linguistic-Cultural Mediation.</p>
+        </div>
+        <div class="snap-card">
+          <h3>Languages</h3>
+          <p>Italian (native) · German C1 · English B2/C1 · Spanish A2</p>
+        </div>
+        <div class="snap-card">
+          <h3>Location</h3>
+          <p>Based in Munich. Willing to relocate to Rome. Has lived and worked in both Italy and Germany since 2017.</p>
+        </div>
+      </div>
+
+      <div class="strengths-gaps">
+        <div class="sg-box strengths">
+          <h3>Strengths for this role</h3>
+          <ul>
+            <li>SAP FI/MM proficiency — directly relevant to admin operations</li>
+            <li>Trilingual communication (DE/EN/IT) in professional contexts</li>
+            <li>Cross-border work experience (Italy + Germany)</li>
+            <li>Administrative rigour and process orientation</li>
+            <li>Translation background — useful for international documentation</li>
+          </ul>
+        </div>
+        <div class="sg-box gaps">
+          <h3>Gaps to probe</h3>
+          <ul>
+            <li>No direct people-operations or HR experience</li>
+            <li>No managerial or team-lead experience</li>
+            <li>English at B2/C1 — role requires full proficiency</li>
+            <li>No evidence of AI tool usage or process automation beyond SAP</li>
+            <li>Jump from "assistant" to "manager" title needs justification</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── QUESTIONS TAB ─── -->
+  <div class="tab-content" id="questions">
+    <div class="container">
+      <div class="controls">
+        <button class="expand-btn" id="expandAll">Expand all</button>
+      </div>
+
+      <div class="section-label">Part 1 — Motivation &amp; Fit</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">1</div>
+          <div class="q-text">What specifically attracted you to the People Administration Manager role at Bending Spoons?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Tests whether she has researched the company and can articulate genuine motivation. Bending Spoons has a very specific culture (high-ambition, AI-integrated, acquisition-driven). Does she understand that?</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>What do you know about Bending Spoons' business model?</li>
+              <li>How do you feel about the expectation to spend your first months in Milan?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">2</div>
+          <div class="q-text">Your background is heavily administrative and customer-service oriented. How do you see yourself stepping into a managerial role focused on people operations?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Addresses the gap between her current title (Administrative Assistant) and the target role (Manager). Forces her to bridge that gap convincingly.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>Can you give an example of a time you took ownership of a process end-to-end?</li>
+              <li>Have you ever had to manage or coordinate other people's work, even informally?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="section-label">Part 2 — Core Competencies</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">3</div>
+          <div class="q-text">The role involves managing the full onboarding and offboarding cycle. Walk me through how you'd design an onboarding process for a new hire joining a remote-first tech company.</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Tests first-principles thinking and operational planning — two things Bending Spoons explicitly values. She has no direct onboarding experience, so this reveals how she thinks under pressure.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>What would you automate first?</li>
+              <li>How would you measure whether your onboarding process is working?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">4</div>
+          <div class="q-text">You've worked extensively with SAP FI and MM. The job listing mentions "continuously improving workflows through automation and AI-enabled tools." Give me an example of a process you've improved or automated in a past role.</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Links her existing SAP expertise to the role's emphasis on automation and AI. If she can't give a concrete example, it flags a potential weakness.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>How comfortable are you with learning new software tools quickly?</li>
+              <li>What's your experience with AI tools in a professional context?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">5</div>
+          <div class="q-text">This role requires managing job-offer processes end-to-end, including supporting international employees with visas. You've lived and worked in both Italy and Germany. How has that experience prepared you for handling cross-border employment logistics?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Her international experience is one of her strongest selling points. This lets her showcase it while you assess depth vs. surface familiarity.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>Have you ever dealt with visa or work-permit paperwork for yourself or others?</li>
+              <li>What challenges did you face navigating bureaucracy in Germany vs. Italy?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="section-label">Part 3 — Soft Skills &amp; Culture Fit</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">6</div>
+          <div class="q-text">Bending Spoons describes itself as a "demanding environment" with an extremely high bar. Tell me about a time you were held to a standard you found difficult. How did you respond?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Directly mirrors the company's own language. Tests resilience, self-awareness, and honesty about limitations.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>What does "high standard" mean to you in practical terms?</li>
+              <li>How do you handle feedback that feels unfair?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">7</div>
+          <div class="q-text">The job listing emphasises "team spirit" — supporting the best idea, not your own. Describe a situation where you had to set aside your preferred approach in favour of someone else's.</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Tests ego management and collaboration. Relevant because the role involves cross-functional work with legal, finance, and department heads.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>How do you handle disagreements with a manager or colleague?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="section-label">Part 4 — Language &amp; Communication</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">8</div>
+          <div class="q-text">The role requires English proficiency. Let's switch to English for a moment — can you explain what your current role at Stadtwerke München involves, in English?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Her CV lists English at B2/C1. The role requires proficiency. This is a natural, low-pressure way to test spoken English without making it feel like an exam.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>Have you ever had to draft professional documents or communications in English?</li>
+              <li>How do you handle situations where you need to communicate complex information in a language that isn't your strongest?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="section-label">Part 5 — Problem-Solving Scenarios</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">9</div>
+          <div class="q-text">Imagine Bending Spoons acquires a company in Poland with 40 employees. You're asked to lead the people-administration side of integrating them. Where do you start?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Directly tests one of the listed responsibilities ("people side of extraordinary administrative operations including new business acquisitions"). Reveals structured thinking, compliance awareness, and prioritisation.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>What would you need to find out before day one?</li>
+              <li>How would you handle discovering that the acquired company's employment contracts don't meet Bending Spoons' standards?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">10</div>
+          <div class="q-text">You discover that a recently onboarded employee's visa is about to expire and the renewal paperwork was never filed. What do you do?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Crisis-management scenario. Tests composure, prioritisation, and accountability — does she blame others or focus on solving the problem?</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>How would you prevent this from happening again?</li>
+              <li>Who would you involve or escalate to?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="section-label">Part 6 — Closing</div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">11</div>
+          <div class="q-text">Where do you see yourself professionally in three years?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Bending Spoons emphasises rapid career growth. Tests ambition and whether her trajectory aligns with the company's expectations.</p>
+          </div>
+          <div class="follow-ups">
+            <h4>Follow-ups</h4>
+            <ul>
+              <li>What specific skills do you want to develop in this role?</li>
+            </ul>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-header" onclick="toggleCard(this)">
+          <div class="q-num">12</div>
+          <div class="q-text">Is there anything about your background that you feel we haven't covered, or anything you'd like to ask me about the role?</div>
+          <div class="q-toggle">▾</div>
+        </div>
+        <div class="q-body"><div class="q-body-inner">
+          <div class="rationale">
+            <div class="rationale-label">Why this question</div>
+            <p>Standard closer, but revealing. Strong candidates ask informed questions about the company, the team, or the role's scope.</p>
+          </div>
+          <div class="notes-area"><textarea placeholder="Notes..."></textarea></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── EVALUATION TAB ─── -->
+  <div class="tab-content" id="evaluation">
+    <div class="container">
+      <table class="eval-table">
+        <thead>
+          <tr>
+            <th style="width:30%">Criterion</th>
+            <th style="width:40%">What to assess</th>
+            <th style="width:30%">Score / Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="criterion">Motivation &amp; Company Knowledge</td>
+            <td class="desc">Has she researched Bending Spoons? Does she understand the culture?</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+          <tr>
+            <td class="criterion">Relevant Experience</td>
+            <td class="desc">Can she convincingly bridge admin experience → people ops management?</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+          <tr>
+            <td class="criterion">Problem-Solving</td>
+            <td class="desc">Does she structure her thinking logically under pressure?</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+          <tr>
+            <td class="criterion">Communication (English)</td>
+            <td class="desc">Is her spoken English confident and professional enough for the role?</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+          <tr>
+            <td class="criterion">Cultural Fit</td>
+            <td class="desc">Does she demonstrate ambition, resilience, and collaborative instinct?</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+          <tr>
+            <td class="criterion">Overall Recommendation</td>
+            <td class="desc">Proceed / Proceed with reservations / Do not proceed</td>
+            <td><input type="text" placeholder="—"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="final-notes">
+        <h3>Additional Comments</h3>
+        <textarea placeholder="Overall impressions, red flags, standout moments..."></textarea>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Accordion
+  function toggleCard(header) {
+    header.closest('.question-card').classList.toggle('open');
+  }
+
+  // Expand all
+  const expandBtn = document.getElementById('expandAll');
+  let allOpen = false;
+  expandBtn.addEventListener('click', () => {
+    allOpen = !allOpen;
+    document.querySelectorAll('.question-card').forEach(c => {
+      allOpen ? c.classList.add('open') : c.classList.remove('open');
+    });
+    expandBtn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+  });
+</script>
+</body>
+</html>
